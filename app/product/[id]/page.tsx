@@ -49,7 +49,7 @@ const Product = () => {
     return (
         <div className="mt-16 max-w-7xl mx-auto px-4 sm:px-6 py-6">
              <ToastContainer />
-            <div className="mx-24">
+            <div className="lg:mx-24">
             <ChevronLeft 
             onClick={()=>router.push('/products') }
             />
