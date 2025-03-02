@@ -9,8 +9,6 @@ import Image from "next/image";
 import { useParams,useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from "@/redux/store";
 
 const Product = () => {
     const params = useParams();
@@ -18,9 +16,7 @@ const Product = () => {
     const [product, setProduct] = useState<Product | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const router = useRouter();
-    const dispatch = useDispatch();
-    const count = useSelector((state: RootState) => state.counter.count);
-
+    const [count,setCount] = useState<number>(0);
 
     useEffect(() => {
         const fetchProductById = async () => {
@@ -82,13 +78,13 @@ const Product = () => {
                             <MinusCircle
                                 color={count === 0 ? "#B0B0B0" : "#696969"}
                                 className="cursor-pointer w-5 h-5 sm:w-8 sm:h-8"
-                                onClick={() => dispatch(setCount(Math.max(0, count - 1)))}
+                                onClick={() => setCount( (count)=>count==0? 0: count - 1)}
                             />
                             <span className="text-lg font-semibold">{count}</span>
                             <PlusCircle
                                 color="#F9D03F"
                                 className="cursor-pointer w-5 h-5 sm:w-8 sm:h-8"
-                                onClick={() => dispatch(setCount(count + 1))}
+                                onClick={() => setCount((count)=>count + 1)}
                             />
                         </div>
                         <h1 className="text-xl mt-3 ">$ {product.price.toFixed(1)}</h1>
