@@ -1,16 +1,15 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Lato as LatoFont } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "@/components/theme-provider"
+import { ModeToggle } from "@/components/Toggle";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const lato = LatoFont({
   subsets: ["latin"],
+  weight: ["400"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,11 +22,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+    <html lang="en" suppressHydrationWarning>
+      <body className={lato.className}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <ModeToggle/>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
