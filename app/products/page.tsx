@@ -34,7 +34,9 @@ const Products = () => {
 
     async function fetchAllProducts(limit: number, skip: number) {
         try {
-            const productsAPI = await fetch(`https://dummyjson.com/products?limit=${limit}&skip=${skip}`, {
+            const filterValue = menuButtons[active];
+            console.log(filterValue);
+            const productsAPI = await fetch(`https://dummyjson.com/products/${filterValue==="ALL"?'':`category/${filterValue.toLowerCase()}`}?limit=${limit}&skip=${skip}`, {
                 method: "GET",
                 headers: { "Content-Type": "application/json" }
             });
@@ -127,7 +129,7 @@ const Products = () => {
                 ))}
             </div>
 
-            <div className="mt-10 w-full grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6  px-4 sm:px-12">
+            <div className="mt-10 w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6  px-4 sm:px-12">
                 {products &&
                     products.map((product: Product) => (
                         <Card key={uuidv4()}
